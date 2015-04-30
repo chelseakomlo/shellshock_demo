@@ -3,7 +3,7 @@
 ## Setup
   1. Set up a vagrant box using this vagrant file. This will install Apache and forward to port 8080.. 
   2. Create a cgi file in /usr/lib/cgi-bin. It can be as simple as html content type "hello world."  
-  3. Test the following vulnerabilities against 'http://localhost:8080/cgi-bin/shellshock_test.sh' 
+  3. Test the following vulnerabilities against "http://localhost:8080/cgi-bin/some_file_of_your_choice.sh" 
 
 
 ## Demoing the vulnerability
